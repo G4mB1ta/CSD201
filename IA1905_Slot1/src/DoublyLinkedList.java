@@ -1,5 +1,5 @@
 
-public class DoubleLinkedList {
+public class DoublyLinkedList {
     // Node class
     private static class Node {
         int data;
@@ -17,7 +17,7 @@ public class DoubleLinkedList {
     private Node tail; // Tail node of the list
 
     // Constructor
-    public DoubleLinkedList() {
+    public DoublyLinkedList() {
         head = null;
         tail = null;
     }

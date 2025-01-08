@@ -6,7 +6,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        DoubleLinkedList dll = new DoubleLinkedList();
+        DoublyLinkedList dll = new DoublyLinkedList();
 
         dll.addLast(10);
         dll.addLast(20);
