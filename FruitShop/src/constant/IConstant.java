@@ -11,6 +11,8 @@ package constant;
  */
 public interface IConstant {
 
+    String RESTOCK = "RESTOCK";
+    String BUY = "BUY";
     String REGEX_YESNO = "^[YN]$"; // Chỉ chấp nhận 'Y' hoặc 'N' một lần duy nhất.
     String REGEX_NAME = "^[a-zA-Z]+$"; // Chấp nhận tên chỉ chứa chữ cái, không có ký tự đặc biệt hoặc số.
 }

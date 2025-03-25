@@ -10,7 +10,6 @@ import bo.ProductBO;
 import constant.IConstant;
 import constant.IMessage;
 import entity.Order;
-import entity.OrderItem;
 import entity.Product;
 import java.util.List;
 import mock.Data;
@@ -34,71 +33,52 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    {
-                        int id = Validate.getInt("Enter id: ",
-                                IMessage.INVALID,
-                                IMessage.OOB, 1, Integer.MAX_VALUE);
-                        String name = Validate.getString("Enter name: ",
-                                IMessage.INVALID, IConstant.REGEX_NAME);
-                        String origin = Validate.getString("Enter origin: ",
-                                IMessage.INVALID, IConstant.REGEX_NAME);
-                        int price = Validate.getInt("Enter price: ",
-                                IMessage.INVALID,
-                                IMessage.OOB, 1, Integer.MAX_VALUE);
-                        Product p = new Product(id, name, origin, price);
-                        
-                        if (productBo.add(p)) {
-                            System.out.print(IMessage.ADDED_SUCCESS);
-                        } else {
-                            System.out.print(IMessage.ADDED_FAILED);
-                        }
-                        
-                    }
+                    productBo.add();
                     break;
                 case 2:
-                    List<Order> ol = orderBo.getOrders();
-                    displayOrders(ol);
+                    orderBo.display();
                     break;
                 case 3:
-                    {
-                        Order o = new Order();
-                        List<Product> pl = productBo.getProducts();
-                        String check = "N";
-                        while (check.equals("N")) {
-                            OrderItem oi = new OrderItem();
-                            displayProducts(pl);
-                            int id = Validate.getInt("Enter product id: ", 
-                                    IMessage.INVALID, 
-                                    IMessage.OOB, 1, Integer.MAX_VALUE);
-                            
-                            Product p = productBo.getProductById(id);
-                            
-                            if (p != null) {
-                                oi.setId(p.getId());
-                                oi.setName(p.getName());
-                                oi.setOrigin(p.getOrigin());
-                                oi.setPrice(p.getPrice());
-                                int q = Validate.getInt("Enter quantity: ", 
-                                        IMessage.INVALID, 
-                                        IMessage.OOB, 1, Integer.MAX_VALUE);
-                                oi.setQuantity(q);
-                                o.add(oi);
-                            } else {
-                                System.out.print("Product not found!");
-                            }   
-                            
-                            check = Validate.getString(
-                                    "Do you want to order now?(Y/N); ",
-                                    IMessage.INVALID, IConstant.REGEX_YESNO);
-                        }
-                        
-                        System.out.print(o.toString());
-                        
-                        String name = Validate.getString("Enter customer: ", 
-                                IMessage.INVALID, IConstant.REGEX_NAME);
-                        o.setCustomer(name);
-                        orderBo.add(o);
-                    }
+                    orderBo.add(productBo.getProducts());
+//                    {
+//                        Order o = new Order();
+//                        List<Product> pl = productBo.getProducts();
+//                        String check = "N";
+//                        while (check.equals("N")) {
+//                            OrderItem oi = new OrderItem();
+//                            displayProducts(pl);
+//                            int id = Validate.getInt("Enter product id: ", 
+//                                    IMessage.INVALID, 
+//                                    IMessage.OOB, 1, Integer.MAX_VALUE);
+//                            
+//                            Product p = productBo.getProductById(id);
+//                            
+//                            if (p != null) {
+//                                oi.setId(p.getId());
+//                                oi.setName(p.getName());
+//                                oi.setOrigin(p.getOrigin());
+//                                oi.setPrice(p.getPrice());
+//                                int q = Validate.getInt("Enter quantity: ", 
+//                                        IMessage.INVALID, 
+//                                        IMessage.OOB, 1, Integer.MAX_VALUE);
+//                                oi.setQuantity(q);
+//                                o.add(oi);
+//                            } else {
+//                                System.out.print("Product not found!");
+//                            }   
+//                            
+//                            check = Validate.getString(
+//                                    "Do you want to order now?(Y/N); ",
+//                                    IMessage.INVALID, IConstant.REGEX_YESNO);
+//                        }
+//                        
+//                        System.out.print(o.toString());
+//                        
+//                        String name = Validate.getString("Enter customer: ", 
+//                                IMessage.INVALID, IConstant.REGEX_NAME);
+//                        o.setCustomer(name);
+//                        orderBo.add(o);
+//                    }
                     break;
                 case 4:
                     break;
@@ -106,20 +86,4 @@ public class Main {
 
         } while (choice != 4);
     }
-
-    private static void displayProducts(List<Product> list) {
-        System.out.print(IMessage.PRODUCTS_DISPLAY_HEADER);
-        list.forEach((p) -> {
-            System.out.print(p.toString());
-        });
-    }
-
-    private static void displayOrders(List<Order> list) {
-        System.out.print(IMessage.ORDER_DISPLAY_HEADER);
-        list.forEach((o) -> {
-            System.out.print(o.toString());
-        });
-
-    }
-
 }

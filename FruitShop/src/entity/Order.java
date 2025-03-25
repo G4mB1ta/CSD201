@@ -10,13 +10,13 @@ import java.util.List;
 
 public class Order {
     private String customer;
-    private List<OrderItem> items;
+    private List<Product> items;
 
     public Order() {
         items = new ArrayList();
     }
 
-    public Order(String customer, List<OrderItem> items) {
+    public Order(String customer, List<Product> items) {
         this.customer = customer;
         this.items = items;
     }
@@ -31,20 +31,21 @@ public class Order {
 
     public int getTotal() {
         int total = 0;
-        for(OrderItem oi: items) {
+        for(Product oi: items) {
             total += oi.getAmount();
         }
         return total;
     }
     
-    public boolean add(OrderItem newOrderItem) {
-        for(OrderItem oi : items) {
+    public boolean add(Product newOrderItem) {
+        for(Product oi : items) {
             if (oi.getId() == newOrderItem.getId()) {
                 oi.setQuantity(oi.getQuantity() + newOrderItem.getQuantity());
                 return true;
             }
         }
         return items.add(newOrderItem);
+        
     }
     
     @Override

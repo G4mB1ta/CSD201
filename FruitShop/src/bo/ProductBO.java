@@ -1,5 +1,7 @@
 package bo;
 
+import constant.IConstant;
+import constant.IMessage;
 import entity.Product;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +35,20 @@ public class ProductBO {
         this.products = products;
     }
 
-    public boolean add(Product newProduct) {
-        for (Product p : products) {
-            if (p.getId() == newProduct.getId() || p.getName().equals(newProduct.getName())) {
-                return false;
-            }
+    public void add() {
+        Product p = new Product();
+        if (!p.input(products, IConstant.RESTOCK)) {
+            products.add(p);
         }
-        return products.add(newProduct);
     }
-
+    
+    public void display() {
+        System.out.print(IMessage.PRODUCTS_DISPLAY_HEADER);
+        products.forEach((p) -> {
+            System.out.print(p.toString());
+        });
+    }
+    
     public Product getProductById(int id) {
         for (Product p : products) {
             if (p.getId() == id) {
